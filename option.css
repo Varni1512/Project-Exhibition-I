@@ -1,0 +1,158 @@
+/* Modern CSS for New Ticket Form */
+
+/* General Styles */
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f4f7fc;
+  margin: 0;
+  padding: 0;
+  color: #333;
+  background: url(img/GFG.pdf\ \(1\).png);
+  background-size: cover;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.form-container {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+}
+
+label {
+  display: block;
+  margin: 1rem 0 0.5rem;
+  font-weight: 500;
+  color: #555;
+  font-size: 1rem;
+}
+
+.required {
+  color: red;
+}
+
+/* Input Fields */
+input[type="text"],
+input[type="tel"],
+select,
+textarea {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #333;
+  background-color: #f9fafb;
+  transition: all 0.3s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: #4a54f1;
+  box-shadow: 0 0 0 2px rgba(74, 84, 241, 0.3);
+}
+
+/* Dropdown */
+select {
+  appearance: none;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="gray" viewBox="0 0 20 20"><path d="M7 7l3-3 3 3M7 13l3 3 3-3"/></svg>') no-repeat right 12px center;
+  background-size: 15px;
+  padding-right: 2.5rem;
+}
+
+/* Ticket Body - Rich Text Area */
+textarea {
+  resize: none;
+  height: 150px;
+}
+
+.text-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: #f9fafb;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+/* Submit Button */
+.submitBtn {
+  background: linear-gradient(135deg, #4a54f1 0%, #4a7af1 100%);
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.9rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  display: inline-block;
+  width: 100%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.submitBtn:hover {
+  background: linear-gradient(135deg, #3742fa 0%, #4a54f1 100%);
+  box-shadow: 0 6px 12px rgba(74, 84, 241, 0.2);
+}
+
+label {
+  display: block;
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+span {
+  color: red;
+}
+
+input[type="text"],
+select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.radio-group {
+  margin: 10px 0;
+}
+
+.radio-group label {
+  display: inline-block;
+  width: 200px;
+}
+
+.editor {
+  height: 150px;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .form-container {
+    padding: 1.5rem;
+  }
+
+  input[type="text"],
+  input[type="tel"],
+  select,
+  textarea {
+    font-size: 0.9rem;
+  }
+}

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Ticket Form</title>
+  <link rel="stylesheet" href="option.css">
+</head>
+
+<body>
+  <div class="form-container">
+    <h2>New Ticket Form</h2>
+    <form action="/post" method="POST">
+      <!-- Ticket Subject -->
+      <label for="ticket-subject">Ticket Subject<span class="required">*</span></label>
+      <input type="text" id="ticket_subject" name="ticket_subject" placeholder="Title" required>
+
+      <!-- Ticket Category Dropdown -->
+      <label for="ticket-category">Ticket Category<span class="required">*</span></label>
+      <select id="ticket_category" name="ticket_category" required onchange="toggleFields()">
+        <option value="">Select</option>
+        <option value="carpentry-boys">Carpentry » Boys Hostel</option>
+        <option value="carpentry-girls">Carpentry » Girls Hostel</option>
+        <option value="carpentry-other">Carpentry » Other Buildings</option>
+        <option value="civil-hostel">Civil Work » Hostel</option>
+        <option value="civil-other">Civil Work » Other Building</option>
+        <option value="electrical-boys">Electrical » Boys Hostel</option>
+        <option value="electrical-girls">Electrical » Girls Hostel</option>
+        <option value="electrical-other">Electrical » Other Buildings</option>
+        <option value="housekeeping-boys">House Keeping » Boys Hostel</option>
+        <option value="housekeeping-girls">House Keeping » Girls Hostel</option>
+        <option value="housekeeping-other">House Keeping » Other Buildings</option>
+        <option value="plumbing-boys">Plumbing » Boys Hostel</option>
+        <option value="plumbing-girls">Plumbing » Girls Hostel</option>
+        <option value="plumbing-other">Plumbing » Other Buildings</option>
+        <option value="wifi-boys">Wifi/Network » Boys Hostel</option>
+        <option value="wifi-girls">Wifi/Network » Girls Hostel</option>
+        <option value="wifi-other">Wifi/Network » Other Buildings</option>
+      </select>
+
+      <!-- Contact Number -->
+      <label for="contact-number">Contact Number<span class="required">*</span></label>
+      <input type="tel" id="contact_number" name="contact_number" placeholder="Enter your contact number" required>
+
+      <!-- Problem Subcategory (Initially Hidden) -->
+      <div id="subcategory-section" style="display:none;">
+        <label for="subcategory">Problem Subcategory<span>*</span></label>
+        <select id="subcategory" name="subcategory" required>
+          <option value="">Select</option>
+          <optgroup label="Fan">
+            <option value="fan-speed">Fan - Speed</option>
+            <option value="fan-noise">Fan - Noise/Vibration</option>
+            <option value="fan-stopped">Fan - Stopped</option>
+            <option value="fan-swinging">Fan - Not swinging</option>
+          </optgroup>
+          <optgroup label="Light">
+            <option value="light-flickering">Light - Flickering/Dim</option>
+            <option value="light-not-glowing">Light - Not Glowing</option>
+            <option value="light-loose-fitting">Light - Loose Fitting</option>
+          </optgroup>
+          <optgroup label="Water Cooler">
+            <option value="watercooler-no-cold">Water Cooler - No Cold Water</option>
+            <option value="watercooler-shock">Water Cooler - Shock (Leakage Current)</option>
+            <option value="watercooler-power">Water Cooler - No Power supply</option>
+            <option value="watercooler-plumbing">Water Cooler - No water (Plumbing)</option>
+          </optgroup>
+          <optgroup label="AC">
+            <option value="ac-water-leak">AC - Water Leakage</option>
+            <option value="ac-not-cooling">AC - Not Cooling</option>
+            <option value="ac-error-code">AC - Error Code</option>
+            <option value="ac-no-power">AC - No Power to AC</option>
+          </optgroup>
+          <optgroup label="Geyser">
+            <option value="geyser-no-water">Geyser: Drinking - No hot water</option>
+            <option value="geyser-no-plumbing">Geyser: Drinking - No water(Plumbing)</option>
+            <option value="geyser-no-power">Geyser: Drinking - No Power supply</option>
+            <option value="geyser-bathing-no-water">Geyser: Bathing - No hot water</option>
+            <option value="geyser-bathing-plumbing">Geyser: Bathing - No water(Plumbing)</option>
+            <option value="geyser-bathing-no-power">Geyser: Bathing - No Power supply</option>
+          </optgroup>
+          <optgroup label="Lift">
+            <option value="lift-door-jam">Lift - Door Jam</option>
+            <option value="lift-out-of-service">Lift - Out of Service</option>
+            <option value="lift-switch-issue">Lift - Switch issue</option>
+            <option value="lift-light-not-working">Lift - Light not working</option>
+            <option value="lift-fan-not-working">Lift - Fan not working</option>
+            <option value="lift-power-down">Lift - Power Down</option>
+          </optgroup>
+        </select>
+      </div>
+
+      <!-- Civil Work Additional Fields (Initially Hidden) -->
+      <div id="civil-fields-section" style="display:none;">
+        <label for="building">Building<span>*</span></label>
+        <select id="building" name="building" required>
+          <option value="">Select</option>
+          <option value="AB1">Academic Block 1</option>
+          <option value="AB2">Academic Block 2</option>
+          <option value="LC">Lab Complex</option>
+          <option value="Arch">Architecture Block</option>
+          <option value="MPH">Multi Purpose Hall</option>
+        </select>
+
+        <label for="floor">Floor<span>*</span></label>
+        <input type="text" id="floor" name="floor" required>
+
+        <label for="location">Location<span>*</span></label>
+        <input type="text" id="location" name="location" placeholder="Room No or Location e.g. wasroom, AB310 etc."
+          required>
+      </div>
+
+      <!-- Hostel Block (Initially Hidden) -->
+      <div id="hostel-block-section" style="display:none;">
+        <label for="hostel-block">Hostel Block<span>*</span></label>
+        <select id="hostel_block" name="hostel_block" required>
+          <option value="">Select</option>
+          <option value="A">Boys Hostel Block 1</option>
+          <option value="B">Boys Hostel Block 2</option>
+          <option value="C">Boys Hostel Block 3</option>
+          <option value="D">Boys Hostel Block 4</option>
+          <option value="E">Boys Hostel Block 5</option>
+          <option value="F">Boys Hostel Block 6</option>
+          <option value="A">Girls Hostel Block 1</option>
+          <option value="B">Girls Hostel Block 2</option>
+          <option value="A">Special Rooms</option>
+        </select>
+      </div>
+
+      <!-- Room Number (Initially Hidden) -->
+      <div id="room-number-section" style="display:none;">
+        <label for="room-number">Room Number<span>*</span></label>
+        <input type="text" id="room_number" name="room_number" placeholder="Enter Room Number" required />
+      </div>
+
+      <!-- Free Slots (Initially Hidden) -->
+      <div id="slots_section" name="slots_section" style="display:none;">
+        <p>Free Slot<span>*</span></p>
+        <div class="radio-group">
+          <label>Free Slot 1 (08:30 - 10:00):</label>
+          <input type="radio" name="slot1" value="yes"> Yes
+          <input type="radio" name="slot1" value="no"> No
+        </div>
+        <div class="radio-group">
+          <label>Free Slot 2 (10:05 - 11:35):</label>
+          <input type="radio" name="slot2" value="yes"> Yes
+          <input type="radio" name="slot2" value="no"> No
+        </div>
+        <div class="radio-group">
+          <label>Free Slot 3 (11:40 - 13:10):</label>
+          <input type="radio" name="slot3" value="yes"> Yes
+          <input type="radio" name="slot3" value="no"> No
+        </div>
+        <div class="radio-group">
+          <label>Free Slot 4 (14:50 - 16:20):</label>
+          <input type="radio" name="slot4" value="yes"> Yes
+          <input type="radio" name="slot4" value="no"> No
+        </div>
+        <div class="radio-group">
+          <label>Free Slot 5 (16:25 - 17:55):</label>
+          <input type="radio" name="slot5" value="yes"> Yes
+          <input type="radio" name="slot5" value="no"> No
+        </div>
+        <div class="radio-group">
+          <label>Free Slot 6 (18:00 - 19:30):</label>
+          <input type="radio" name="slot6" value="yes"> Yes
+          <input type="radio" name="slot6" value="no"> No
+        </div>
+      </div>
+
+      <!-- Create Ticket Button -->
+      <button type="button" class="submitBtn" id="submitBtn">Create Ticket</button>
+    </form>
+  </div>
+
+  <script>
+
+    document.getElementById('submitBtn').addEventListener('click', async () => {
+      // Gather all input values
+      const ticket_subject = document.getElementById('ticket_subject').value;
+      const ticket_category = document.getElementById('ticket_category').value;
+      const contact_number = document.getElementById('contact_number').value;
+      const subcategory = document.getElementById('subcategory').value;
+      const building = document.getElementById('building').value;
+      const floor = document.getElementById('floor').value;
+      const location = document.getElementById('location').value;
+      const hostel_block = document.getElementById('hostel_block').value;
+      const room_number = document.getElementById('room_number').value;
+      const slots_section = document.getElementById('slots_section').value;
+
+      // Create the data object
+      const data = {
+        "ticket_subject":ticket_subject,
+        "ticket_category":ticket_category,
+        "contact_number":contact_number,
+        "subcategory":subcategory,
+        "building":building,
+        "floor":floor,
+        "location":location,
+        "hostel_block":hostel_block,
+        "room_number":room_number,
+        "slots_section":slots_section
+      };
+      console.log(data,"SDasdas")
+      // Send data to the /post endpoint
+      try {
+        const response = await fetch('/post', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+          const result = await response.text();
+          alert(result); // Show success message
+        } else {
+          alert('Error creating ticket');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred while creating the ticket.');
+      }
+    });
+
+    // JavaScript to show/hide fields based on ticket category selection
+    function toggleFields() {
+      var category = document.getElementById("ticket_category").value;
+      var subcategorySection = document.getElementById("subcategory-section");
+      var civilFieldsSection = document.getElementById("civil-fields-section");
+      var hostelBlockSection = document.getElementById("hostel-block-section");
+      var roomNumberSection = document.getElementById("room-number-section");
+      var slotsSection = document.getElementById("slots_section");
+
+      // Initially hide all sections except basic fields
+      subcategorySection.style.display = "none";
+      civilFieldsSection.style.display = "none";
+      hostelBlockSection.style.display = "none";
+      roomNumberSection.style.display = "none";
+      slotsSection.style.display = "none";
+
+      // Show Problem Subcategory for Electrical issues in Hostels
+      if (category && category.includes("electrical") && (category.includes("boys") || category.includes("girls"))) {
+        subcategorySection.style.display = "block";
+      }
+
+      // Show Hostel Block and Room Number for Hostels
+      if (category && (category.includes("boys") || category.includes("girls"))) {
+        hostelBlockSection.style.display = "block";
+        roomNumberSection.style.display = "block";
+      }
+
+      // Show Civil Fields for Civil Work categories
+      if (category && category.includes("civil")) {
+        civilFieldsSection.style.display = "block";
+      }
+
+      // Show Slots Section for all categories as a common field
+      if (category) {
+        slotsSection.style.display = "block";
+      }
+    }
+
+  </script>
+</body>
+
+</html>

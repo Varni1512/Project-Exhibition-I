@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Chatbot</title>
+    <style>
+        /* Chatbot Icon */
+        .chatbot-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        /* Chatbot Window */
+        .chatbot-window {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 360px;
+            height: 500px;
+            background-color: #ffffff;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            display: none;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+            z-index: 1001;
+        }
+
+        /* Chatbot Header */
+        .chatbot-header {
+            background-color: #f5f5f5;
+            color: #333;
+            padding: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            border-radius: 10px 10px 0 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .chatbot-close {
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        /* Chatbot Body */
+        .chatbot-body {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background-color: #fafafa;
+        }
+
+        .chatbot-message {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .bot-avatar {
+            width: 40px;
+            height: 40px;
+        }
+
+        .bot-message,
+        .user-message {
+            background-color: #f0f0f0;
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-size: 14px;
+            max-width: 70%;
+        }
+
+        .user-message {
+            background-color: #e6f7ff;
+            margin-left: auto;
+        }
+
+        /* Options */
+        .user-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .user-option {
+            background-color: #e6f7ff;
+            border: 1px solid #b3d8ff;
+            border-radius: 8px;
+            padding: 10px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        .user-option:hover {
+            background-color: #cce7ff;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Chatbot Icon -->
+    <div class="chatbot-icon" id="chatbot-icon">
+        <img src="https://icon-library.com/images/chatbot-icon/chatbot-icon-20.jpg" alt="Chatbot" width="60"
+            height="60">
+    </div>
+
+    <!-- Chatbot Window -->
+    <div class="chatbot-window" id="chatbot-window">
+        <!-- Header -->
+        <div class="chatbot-header">
+            Chatbot
+            <span class="chatbot-close" id="chatbot-close">&times;</span>
+        </div>
+
+        <!-- Body -->
+        <div class="chatbot-body" id="chatbot-body">
+            <!-- Bot's Welcome Message -->
+            <div class="chatbot-message">
+                <img class="bot-avatar" src="https://icon-library.com/images/chatbot-icon/chatbot-icon-20.jpg"
+                    alt="Bot">
+                <div class="bot-message">Hello! How can I help you today?</div>
+            </div>
+            <!-- Options will be dynamically added here -->
+            <div class="user-options" id="user-options">
+                <div class="user-option" onclick="handleOptionClick('Feedback Form')">Feedback Form</div>
+                <div class="user-option" onclick="handleOptionClick('How can I submit my complaint on this website?')">How can I submit my complaint on this website?</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const chatbotIcon = document.getElementById('chatbot-icon');
+        const chatbotWindow = document.getElementById('chatbot-window');
+        const chatbotClose = document.getElementById('chatbot-close');
+        const chatbotBody = document.getElementById('chatbot-body');
+        const userOptions = document.getElementById('user-options');
+
+        // Open Chatbot
+        chatbotIcon.addEventListener('click', () => {
+            chatbotWindow.style.display = 'flex';
+        });
+
+        // Close Chatbot
+        chatbotClose.addEventListener('click', () => {
+            chatbotWindow.style.display = 'none';
+        });
+
+        // Handle Option Click
+        function handleOptionClick(userMessage) {
+            // Add User Message
+            addMessage('user', userMessage);
+
+            // Temporarily hide options
+            userOptions.style.display = 'none';
+
+            // Bot Responds
+            setTimeout(() => {
+                const botResponse = getBotResponse(userMessage);
+                addMessage('bot', botResponse);
+
+                // Show options after bot response
+                setTimeout(() => {
+                    showOptions(); // Show both options again
+                }, 500);
+            }, 1000);
+        }
+
+        // Add Message Function
+        function addMessage(sender, message) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('chatbot-message');
+            if (sender === 'bot') {
+                messageDiv.innerHTML = ` 
+                    <img class="bot-avatar" src="https://icon-library.com/images/chatbot-icon/chatbot-icon-20.jpg" alt="Bot">
+                    <div class="bot-message">${message}</div>
+                `;
+            } else {
+                messageDiv.innerHTML = `<div class="user-message">${message}</div>`;
+            }
+            chatbotBody.appendChild(messageDiv);
+            chatbotBody.scrollTop = chatbotBody.scrollHeight;
+        }
+
+        // Bot Responses
+        function getBotResponse(userMessage) {
+            switch (userMessage) {
+                case 'Feedback Form':
+                    return '<a href="https://docs.google.com/forms/d/e/1FAIpQLSdrcjzdaoskRyopMShIQCh6t6kzXGdVW1FSjSQCwrz2T6c4Zg/viewform" target="_blank" style="color:blue; text-decoration:underline;">Click Here to Provide Feedback</a>';
+                case 'How can I submit my complaint on this website?':
+                    return '1. Choose one option from among these three given icons.<br>' +
+                           '2. Use one of the icons like text, image, and options to file your complaint.<br>' +
+                           '3. Proceed with submitting your problem.<br>' +
+                           '4. To verify if your problem is submitted or not, check the open ticket from the homepage.';
+                default:
+                    return 'I am here to help!';
+            }
+        }
+
+        // Show Options
+        function showOptions() {
+            const optionsContainer = document.createElement('div');
+            optionsContainer.classList.add('user-options');
+
+            optionsContainer.innerHTML = `
+                <div class="user-option" onclick="handleOptionClick('Feedback Form')">Feedback Form</div>
+                <div class="user-option" onclick="handleOptionClick('How can I submit my complaint on this website?')">How can I submit my complaint on this website?</div>
+            `;
+
+            chatbotBody.appendChild(optionsContainer);
+            chatbotBody.scrollTop = chatbotBody.scrollHeight;
+        }
+    </script>
+</body>
+
+</html>
